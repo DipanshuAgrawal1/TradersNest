@@ -20,4 +20,23 @@ class RoleMiddleware
         }
         return $next($request);
     }
+    
+    // public function handle(Request $request, Closure $next, $role): Response
+    // {
+    //     if($request->user()->role !== $role){
+    //         if ($request->user()->role == 'admin'){
+    //             return redirect()->route('admin.dashboard');
+    //         }
+    //         if ($request->user()->role == 'vendor'){
+    //             return redirect()->route('vendor.dashboard');
+    //         }
+    //         if ($request->user()->role == 'user'){
+    //             return redirect()->route('user.dashboard');
+    //         }else{
+    //             return redirect()->route('dashboard');
+    //         }
+    //     }
+    //     return $next($request);
+    // }
+    
 }

@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <form method="POST" action="{{route('admin.slider.update', $slider->id)}}" enctype="multipart/form-data">
                               @csrf
-                              @method("PUT")
+                              @method('PUT')
                                 <div class="form-group">
                                     <label>Preview</label>
                                     <br>

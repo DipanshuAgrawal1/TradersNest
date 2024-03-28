@@ -90,7 +90,7 @@
     <script src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('backend/assets/js/page/index-0.js') }}"></script>
+    {{-- <script src="{{ asset('backend/assets/js/page/index-0.js') }}"></script> --}}
 
     <!-- Template JS File -->
     <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
@@ -112,8 +112,6 @@
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-
                 }
             });
 
@@ -121,7 +119,6 @@
                 event.preventDefault();
 
                 let deleteUrl = $(this).attr('href');
-
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -135,29 +132,30 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            type: 'DELETE',
-                            url: deleteUrl,
+                        type: 'DELETE',
+                        url: deleteUrl,
 
-                            success: function(data) {
-                                if (data.status == 'success') {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted.",
-                                        icon: "success",
-                                        message: data.message
-                                    });
-                                    window.location.reload();
-                                }else if(data.status == 'error'){
-                                    Swal.fire({
-                                        title: "Cant Delete!",
-                                        message: data.message
-                                    });
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.log(error);
+                        success: function(data){
+
+                            if(data.status == 'success'){
+                                Swal.fire(
+                                    'Deleted!',
+                                    data.message,
+                                    'success'
+                                )
+                                window.location.reload();
+                            }else if (data.status == 'error'){
+                                Swal.fire(
+                                    'Cant Delete',
+                                    data.message,
+                                    'error'
+                                )
                             }
-                        })
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+                    })
 
 
                     }
