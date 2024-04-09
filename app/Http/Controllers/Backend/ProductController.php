@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\ProductImageGallery;
+use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brand;
 use App\Models\Category;
@@ -176,8 +178,43 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        /** Delete Main Product Image */
+        $this->deleteImage($product->thumb_image);
+
+        /** Delete Product Image Gallery */
+        $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
+        foreach($galleryImages as $image){
+            $this->deleteImage($image->image);
+            $image->delete();
+        }
+
+        /** Delete Product vaiants if exists */
+        $variants = ProductVariant::where('product_id', $product->id)->get();
+        foreach($variants as $variant){
+            $variant->productVariantItems()->delete();
+            $variant->delete();
+        }
+
+        $product->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully']);
+
     }
+
+    /**
+     * Chnage Product Status.
+     */
+    public function changeStatus(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->status = $request->status == 'true' ? 1 : 0;
+        $product->save();
+
+        return response(['message'=>"Status Updated!"]);
+    }
+
 
     /**
      * Get all product sub categories.
@@ -197,5 +234,5 @@ class ProductController extends Controller
         return $childCategoires;
     }
 
-
+    
 }
