@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\VendorProductController;
+use App\Http\Controllers\Backend\VendorProductImageGalleryController;
 use App\Http\Controllers\Backend\VendorProfileController;
 use App\Http\Controllers\Backend\VendorShopProfileController;
 
@@ -21,3 +22,6 @@ Route::get('product/get-subcategory', [VendorProductController::class, 'getSubCa
 Route::get('product/get-childcategory', [VendorProductController::class, 'getChildCategories'])->name('product.get-childcategories');
 Route::put('product/change-status', [VendorProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('products', VendorProductController::class);
+
+/* Vendor Product Gallery Route */
+Route::resource('products-image-gallery', VendorProductImageGalleryController::class);

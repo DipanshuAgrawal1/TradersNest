@@ -29,15 +29,15 @@ class VendorProductDataTable extends DataTable
         ->addColumn('action', function ($query) {
             $editBtn = "<a href='".route('vendor.products.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
             $deleteBtn = "<a href='".route('vendor.products.destroy', $query->id)."' class='btn btn-danger ml-10 delete-item'><i class='far fa-trash-alt'></i></a>";
-            $moreBtn = '<div class="dropdown dropleft d-inline">
-                <button class="btn btn-primary dropdown-toggle ml-1" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-cog"></i>
-                </button>
-                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="dropdown-item has-icon" href="'. route('admin.products-image-gallery.index', ['product' => $query->id]) .'"><i class="far fa-heart"></i> Image Gallery</a>
-                  <a class="dropdown-item has-icon" href="'. route('admin.products-variant.index', ['product' => $query->id]) .'"><i class="far fa-file"></i> Variants</a>
-                </div>
-              </div>';
+            $moreBtn = '<div class="btn-group dropstart" style="margin-left:3px">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item has-icon" href="'. route('vendor.products-image-gallery.index', ['product' => $query->id]) .'"><i class="far fa-heart"></i> Image Gallery</a></li>
+                        <li><a class="dropdown-item has-icon" href="'. route('admin.products-variant.index', ['product' => $query->id]) .'"><i class="far fa-file"></i> Variants</a></li>                                                
+                    </ul>
+                    </div>';
             return $editBtn . $deleteBtn . $moreBtn;
         })
         ->addColumn('status', function ($query) {

@@ -1390,7 +1390,7 @@ PRODUCT MODAL VIEW END
 }
 
 .wsus__single_slider_text h3 {
-  color: #08C;
+  color: #fff;
   text-transform: capitalize;
   font-weight: 600;
   font-size: 25px;
@@ -1399,13 +1399,13 @@ PRODUCT MODAL VIEW END
 .wsus__single_slider_text h1 {
   text-transform: capitalize;
   font-weight: 800;
-  color: #333;
+  color: #fff;
   margin: 10px 0px;
   font-size: 50px;
 }
 
 .wsus__single_slider_text h6 {
-  color: #08C;
+  color: #fff;
   text-transform: capitalize;
   font-weight: 600;
   font-size: 18px;
