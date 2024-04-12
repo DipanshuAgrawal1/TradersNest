@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\Backend\VendorProductVariantDataTable;
+use App\DataTables\VendorProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -17,7 +17,7 @@ class VendorProductVariantController extends Controller
     public function index(Request $request, VendorProductVariantDataTable $dataTable)
     {
         $product = Product::findOrFail($request->product);
-        return $dataTable->render('vendor.product.variant.index', compact('product'));    
+        return $dataTable->render('vendor.product.variant.index', compact('product'));
     }
 
     /**
@@ -97,14 +97,14 @@ class VendorProductVariantController extends Controller
     {
         $variant = ProductVariant::findOrFail($id);
         $variantItemCheck = ProductVariantItem::where('product_variant_id', $variant->id)->count();
-        if($variantItemCheck > 0){
-        return response(['status' => 'error', 'message' => 'This variant contains items. Delete items before deleting variant.']);
-        }else{
+        if ($variantItemCheck > 0) {
+            return response(['status' => 'error', 'message' => 'This variant contains items. Delete items before deleting variant.']);
+        } else {
             $variant->delete();
             return response(['status' => 'success', 'message' => 'deleted successfully']);
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
@@ -114,6 +114,6 @@ class VendorProductVariantController extends Controller
         $variant->status = $request->status == 'true' ? 1 : 0;
         $variant->save();
 
-        return response(['message'=>"Status Updated!"]);
+        return response(['message' => "Status Updated!"]);
     }
 }

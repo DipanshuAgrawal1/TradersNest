@@ -138,7 +138,11 @@ class ProductController extends Controller
         ]);
 
 
-        $product = Product::findOrFail($id);        
+        $product = Product::findOrFail($id);     
+        
+        // if($product->vendor_id != Auth::user()->vendor->id){
+        //     abort(404);
+        // }
 
         /** Handle the image update */
         $imagePath = $this->updateImage($request, 'image', 'uploads', $product->thunb_image);

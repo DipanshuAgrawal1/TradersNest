@@ -43,11 +43,11 @@ class VendorProductDataTable extends DataTable
         ->addColumn('status', function ($query) {
             if($query->status == 1){
                 $button = '<div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked data-id='.$query->id.'>
+                <input class="form-check-input change-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked data-id='.$query->id.'>
               </div>';
             }else{
                 $button = '<div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id='.$query->id.'>
+                <input class="form-check-input change-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id='.$query->id.'>
               </div>';
             }
             return $button;
@@ -67,7 +67,17 @@ class VendorProductDataTable extends DataTable
                     
             }
         })
-        ->rawColumns(['action', 'status', 'image', 'type'])
+        ->addColumn('Approved', function($query){
+            switch ($query->is_approved) {
+                case 0:
+                    return '<i class="badge bg-danger">No</i>';
+                case 1:
+                    return '<i class="badge bg-success">Yes</i>';
+                default:
+                    return '<i class="badge badge-dark">None</i>';                 
+            }
+        })
+        ->rawColumns(['action', 'status', 'image', 'type', 'Approved'])
             ->setRowId('id');
     }
 
@@ -112,6 +122,7 @@ class VendorProductDataTable extends DataTable
             Column::make('name'),
             Column::make('price'),
             Column::make('type')->width(200),
+            Column::make('Approved')->width(200),
             Column::make('status'),
             Column::computed('action')
                   ->exportable(false)

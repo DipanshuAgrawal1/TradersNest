@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Backend;
+namespace App\DataTables;
 
 use App\Models\ProductVariant;
 use App\Models\VendorProductVariant;
