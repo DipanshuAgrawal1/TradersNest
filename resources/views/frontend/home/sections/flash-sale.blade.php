@@ -23,7 +23,7 @@
                             <span
                                 class="wsus__minus">{{ calculateDiscountPercent($product->price, $product->offer_price) }}%</span>
                         @endif
-                        <a class="wsus__pro_link" href="product_details.html">
+                        <a class="wsus__pro_link" href="{{route('product-detail', $product->slug)}}">
                             <img src="{{ asset($product->thumb_image) }}" alt="product"
                                 class="img-fluid w-100 img_1" />
                             <img src="
@@ -42,7 +42,7 @@
                             <li><a href="#"><i class="far fa-random"></i></a>
                         </ul>
                         <div class="wsus__product_details">
-                            <a class="wsus__category" href="#">{{ $product->category->name }} </a>
+                            <a class="wsus__category" href="">{{ $product->category->name }} </a>
                             <p class="wsus__pro_rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -51,7 +51,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(133 review)</span>
                             </p>
-                            <a class="wsus__pro_name" href="#">{{ $product->name }}</a>
+                            <a class="wsus__pro_name" href="{{route('product-detail', $product->slug)}}">{{ $product->name }}</a>
                             @if (checkDiscount($product))
                                 <p class="wsus__price">${{ $product->offer_price }} <del>${{ $product->price }}</del>
                                 </p>
