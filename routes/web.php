@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'products'],function(){
-    Route::get('/all',[ProductController::class,'getAll']);
+    Route::get('/all',[ProductController::class,'getAllProducts']);
+    Route::get('name/{product_name}',[ProductController::class,'getProductByName']);   
+    Route::get('/{id}',[ProductController::class,'getById']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
