@@ -48,5 +48,16 @@ class Products extends Controller
         }
         return response()->json($data,200);
     }
+    public function getProductByPrice(Request $request){
+        $limit = isset($request['limit']) ? $request['limit'] : 20;
+        $sort = $request->input('sort') ?? 'desc';
+        $data = DB::table('products')->orderBy('price',$sort)->limit($limit)->get()->toArray();
+        if(empty($data)){
+             return response()->json([
+                'message' => 'No products available in database'
+            ],500);
+        }
+        return response()->json($data,200);
+    }
 }
 
