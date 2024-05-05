@@ -7,16 +7,15 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Products as ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/productscus',function(){
-    $data = DB::table('products')->get();
-    return $data;
+Route::group(['prefix'=>'products'],function(){
+    Route::get('/all',[ProductController::class,'getAll']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
