@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -17,7 +18,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['prefix'=>'products'],function(){
     Route::get('/all',[ProductController::class,'getAllProducts']);
     Route::get('name/{product_name}',[ProductController::class,'getProductByName']);   
+    Route::get('/price',[ProductController::class,'getProductByPrice']);
     Route::get('/{id}',[ProductController::class,'getById']);
+    Route::get('/category/{id}',[ProductController::class,'getProductsByCategory']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
