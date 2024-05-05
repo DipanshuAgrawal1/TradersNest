@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 class Products extends Controller
 {
     public function getAllProducts(Request $request){
-        $data = DB::table('products')->select('*')->get()->toArray();
+        $limit = isset($request['limit']) ? $request['limit'] : 20;
+        $data = DB::table('products')->select('*')
+                                     ->limit($limit)
+                                     ->get()
+                                     ->toArray();
         if(empty($data)){
             return response()->json([
                 'message' => 'No products available in your database'
@@ -17,8 +21,12 @@ class Products extends Controller
         return $data;
     }
     public function getProductByName(Request $request){
+        $limit = isset($request['limit']) ? $request['limit'] : 20;
         $name = $request->input('product_name');
-        $data = DB::table('products')->where("name","like","%$name%")->get()->toArray();
+        $data = DB::table('products')->where("name","like","%$name%")
+                                     ->limit($limit)
+                                     ->get()
+                                     ->toArray();
         if(empty($data)){
             return response()->json([
                 'message' => 'No product found with the given name'
@@ -27,8 +35,12 @@ class Products extends Controller
         return $data;
     }
     public  function getById(Request $request){
+        $limit = isset($request['limit']) ? $request['limit'] : 20;
         $id = (int)$request->input('id');
-        $data = DB::table('products')->where('id',$id)->get()->toArray();
+        $data = DB::table('products')->where('id',$id)
+                                     ->limit($limit)
+                                     ->get()
+                                     ->toArray();
         if(empty($data)){
              return response()->json([
                 'message' => 'No product found with the given id'
