@@ -28,7 +28,12 @@ class Products extends Controller
     }
     public  function getById(Request $request){
         $id = (int)$request->input('id');
-        $data = DB::table('products')->where('id',$id)->get();
+        $data = DB::table('products')->where('id',$id)->get()->toArray();
+        if(empty($data)){
+             return response()->json([
+                'message' => 'No product found with the given id'
+            ],500);
+        }
         return response()->json($data,200);
     }
 }
