@@ -20,7 +20,8 @@ Route::group(['prefix'=>'products'],function(){
     Route::get('name/{product_name}',[ProductController::class,'getProductByName']);   
     Route::get('/price',[ProductController::class,'getProductByPrice']);
     Route::get('/{id}',[ProductController::class,'getById']);
-    Route::get('/category/{id}',[ProductController::class,'getProductsByCategory']);
+    Route::get('/category/{id}',[ProductController::class,'getProductsByCategoryID']);
+    Route::get('/category',[ProductController::class,'getProductsByCategory']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

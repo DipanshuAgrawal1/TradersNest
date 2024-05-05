@@ -59,7 +59,7 @@ class Products extends Controller
         }
         return response()->json($data,200);
     }
-    public function getProductsByCategory(Request $request){
+    public function getProductsByCategoryID(Request $request){
          $limit = isset($request['limit']) ? $request['limit'] : 20;
          if(!isset($request['category'])) {
             return response()->json([
@@ -74,6 +74,20 @@ class Products extends Controller
         if(empty($data)){
              return response()->json([
                 'message' => 'No products available in database for the given category'
+            ],500);
+        }
+        return response()->json($data,200);
+
+    }
+    public function getProductsByCategory(Request $request){
+        $limit = isset($request['limit']) ? $request['limit'] : 20;
+        $data = DB::table('products')->groupBy('category_id')
+                                    ->limit($limit)
+                                    ->get()
+                                    ->toArray();
+        if(empty($data)){
+             return response()->json([
+                'message' => 'No products available in database'
             ],500);
         }
         return response()->json($data,200);
